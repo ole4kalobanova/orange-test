@@ -4,45 +4,54 @@ import styles from './index.module.css';
 import { Card } from 'react-bootstrap';
 import { Button, Col, Image, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import github from '../../icons/github.png';
 
 export default function Main() {
   const [users, setUsers] = useState([]);
 
-  // Получаем 10 пользователей
   useEffect(() => {
     (async () => {
-      const response = await fetch("https://api.github.com/users");
-      const data = await response.json();
-      setUsers(data.slice(0, 10));
+      // Запрашиваем количество пользователей гитхаб
+      const responseAllUsers = await fetch("https://api.github.com/search/users?q=type%3Auser");
+      const dataAllUsers = await responseAllUsers.json();
+      // Получаем 10 пользователей
+      // Получаем рандомом пользователей (вычитаем 10 что бы точно было 10 пользователей для вывода)
+      let rand = Math.floor(Math.random() * (dataAllUsers.total_count + 1 - 10));
+      const responseRandomUsers = await fetch(`https://api.github.com/users?since=${rand}`);
+      const dataRandomUsers = await responseRandomUsers.json();
+      // Т.к. API возвращает 30 пользователей, оставляем только 10
+      setUsers(dataRandomUsers.slice(0, 10));
     })()
   }, []);
 
   return (
-    <>
+    <div className={styles.flex}>
       {users && users.map((el) => (
-        <Card className={styles.cards} key={el.id} >
+        <Card
+          bg='dark'
+          text='white'
+          style={{ width: '18rem' }}
+          className={styles.cards}
+          key={el.id}
+        >
           <Card.Header>Логин: {el.login}</Card.Header>
           <Card.Body>
-            <Row>
-              <Col xs={6} md={4}>
-                <Image src={el.avatar_url} className={styles.image} roundedCircle />
-              </Col>
-              <Col xs={6} md={4}>
-                <Card.Title>Special title treatment</Card.Title>
-              </Col>
-              <Col xs={6} md={4}>
-                {/* <Card.Text>
-                  With supporting text below as a natural lead-in to additional content.
-    </Card.Text> */}
-                <Link to={`/${el.login}`}>
-                  <Button variant="primary">Узнать больше</Button>
-                </Link>
-              </Col>
-            </Row>
+            <Image src={el.avatar_url} className={styles.image} roundedCircle />
+            <Card.Text>
+              Посетить профиль на GitHub:
+              <a href={el.html_url}>
+                <img alt="github" className={styles.icon_git} src={github} />
+              </a>
+            </Card.Text>
+            <div >
+              <Link to={`/${el.login}`} className={styles.link}>
+                <Button variant="outline-light" block>Хочу узнать больше!</Button>
+              </Link>
+            </div>
           </Card.Body>
-          <Card.Footer className="text-muted">2 days ago</Card.Footer>
         </Card>
-      ))}
-    </>
+      ))
+      }
+    </div>
   );
 }
