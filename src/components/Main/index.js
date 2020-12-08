@@ -37,18 +37,19 @@ export default function Main() {
           <Card.Header>Логин: {el.login}</Card.Header>
           <Card.Body>
             <Image src={el.avatar_url} className={styles.image} roundedCircle />
+            <br />
             <Card.Text>
               Посетить профиль на GitHub:
               <a href={el.html_url}>
                 <img alt="github" className={styles.icon_git} src={github} />
               </a>
             </Card.Text>
-            <div >
-              <Link to={`/${el.login}`} className={styles.link}>
-                <Button variant="outline-light" block>Хочу узнать больше!</Button>
-              </Link>
-            </div>
           </Card.Body>
+          <Card.Footer>
+            <Link to={`/${el.login}`} className={styles.link}>
+              <Button variant="outline-light" block>Хочу узнать больше!</Button>
+            </Link>
+          </Card.Footer>
         </Card>
       ))
       }

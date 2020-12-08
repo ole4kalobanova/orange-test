@@ -1,0 +1,58 @@
+.cards{
+  margin: 1%;
+  text-align: center;
+}
+
+.cards:hover {
+  box-shadow: 0 0 0 2px white, 0 0 5px 10px #343a40;
+}
+
+.flex{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 3%;
+}
+
+/* .image{
+  height: 10em;
+} */
+.icon_git{
+  max-width: 2em;
+}
+
+.icon_git:hover {
+  box-shadow: 0 0 4px 3px white;
+  border-radius: 50%;
+}
+
+.link{
+  text-decoration: none !important;
+}
+.card-body{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.contact{
+  align-items: flex-end;
+}
+.avatar{
+  max-width: 15em;
+}
+.bio{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.personal{
+  margin: 1% 6.5%;
+}
+.login{
+  text-align: end;
+  margin-right: 6%;
+}
+.info{
+  width: 70%;
+}
