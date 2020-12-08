@@ -1,0 +1,21 @@
+.icon_git{
+  max-width: 2em;
+}
+
+.icon_git:hover {
+  box-shadow: 0 0 4px 3px white;
+  border-radius: 50%;
+}
+
+.info{
+  margin-bottom: 5%;
+}
+
+.readme{
+  padding: 5%;
+  color: white;
+}
+
+.readme_text{
+  padding: 5%;
+}

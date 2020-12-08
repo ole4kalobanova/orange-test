@@ -1,11 +1,10 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
+import { useParams, Link } from 'react-router-dom';
 import styles from './index.module.css';
-import { useParams } from 'react-router-dom';
-import { Button, Col, Image, Row, ListGroupItem, ListGroup } from 'react-bootstrap';
-import { Card } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Button, Image, Card } from 'react-bootstrap';
 import github from '../../icons/github.png';
+import octocat from '../../icons/octocat.png';
 
 export default function Personal() {
   const params = useParams();
@@ -21,6 +20,7 @@ export default function Personal() {
     })()
   }, [params.login]);
 
+  // Запрашиваем инфу по репозиториям пользователя
   useEffect(() => {
     (async () => {
       const response = await fetch(`https://api.github.com/users/${params.login}/repos`);
@@ -28,70 +28,95 @@ export default function Personal() {
       setRepositories(data);
     })()
   }, [params.login]);
-  console.log(repositories);
-
 
   return (
     <>
-      <Card
-        bg='dark'
-        text='white'
-        className={styles.personal}
-      >
-        <Card.Header>
-          <Card.Title className={styles.login}>Логин: {user?.login}</Card.Title>
-        </Card.Header>
-        <Card.Body>
-          <div className={styles.bio}>
-            <div className={styles.info}>
-              <Card.Text>
-                Имя: {user?.name || "---"}
-              </Card.Text>
-              <Card.Text>
-                Сайт: {user?.blog || "---"}
-              </Card.Text>
-              <Card.Text>
-                О себе: {user?.bio || "---"}
-              </Card.Text>
-              <Card.Text>
-                Местоположение: {user?.location || "---"}
-              </Card.Text>
-              <Card.Text>
-                Компания: {user?.company || "---"}
-              </Card.Text>
+      <div className={styles.page}>
+        <div className={styles.flex}>
+          {repositories?.length === 0
+            ? <div className={styles.none}>
+              <img src={octocat} className={styles.octocat} alt="octocat" />
+              <div>У пользователя нет доступных репозиториев</div>
             </div>
-            <Image src={user?.avatar_url} className={styles.avatar} roundedCircle />
-          </div>
-        </Card.Body>
-      </Card>
-
-      <div className={styles.flex}>
-        {repositories && repositories.map((el) => (
+            : ""}
+          {repositories && repositories.map((el) => (
+            <Card
+              bg='dark'
+              text='white'
+              className={styles.cards}
+              key={el.id}
+            >
+              <Card.Header>{el.full_name}</Card.Header>
+              <Card.Body>
+                <Card.Title>{el.name}</Card.Title>
+                <Card.Text>
+                  {el.description}
+                </Card.Text>
+                {el.language
+                  ? <Card.Text>
+                    Используемые языки: {el.language}
+                  </Card.Text>
+                  : ""
+                }
+              </Card.Body>
+              <Card.Footer >
+                <Link to={`/${params.login}/${el.name}`} className={styles.link}>
+                  <Button className="align-self-end" variant="outline-light" block>Хочу узнать еще больше!</Button>
+                </Link>
+              </Card.Footer>
+            </Card>
+          ))
+          }
+        </div>
+        <div className={styles.right}>
           <Card
             bg='dark'
             text='white'
-            style={{ width: '18rem' }}
-            className={styles.cards}
-            key={el.id}
+            className={styles.personal}
           >
-            <Card.Header>{el.full_name}</Card.Header>
             <Card.Body>
-              <Card.Title>{el.name}</Card.Title>
-              <Card.Text>
-                {el.description}
-              </Card.Text>
-              <Card.Text>
-                Используемые языки: {el.language || "---"}
-              </Card.Text>
+              <div className={styles.bio}>
+                <Image src={user?.avatar_url} className={styles.avatar} alt="avatar" roundedCircle />
+                <div className={styles.info}>
+                  {user && user.name
+                    ? <Card.Title>
+                      {user.name}
+                    </Card.Title>
+                    : ""
+                  }
+                  {user && user.login}
+                  {user?.blog
+                    ? <Card.Text>
+                      Сайт: <a href={`http://${user.blog}`}>{user.blog}</a>
+                    </Card.Text>
+                    : ""
+                  }
+                  {user?.company
+                    ? <Card.Text>
+                      Компания: {user.company}
+                    </Card.Text>
+                    : ""
+                  }
+                  {user?.location
+                    ? <Card.Text>
+                      Местоположение: {user.location}
+                    </Card.Text>
+                    : ""
+                  }
+                  {user?.bio
+                    ? <Card.Text>
+                      О себе: {user.bio}
+                    </Card.Text>
+                    : ""
+                  }
+                </div>
+                <a href={user?.html_url}>
+                  <img alt="github" className={styles.icon_git} src={github} />
+                </a>
+              </div>
             </Card.Body>
-            <Card.Footer >
-              {/* <Link to={`/${el.login}`} className={styles.link}> */}
-              <Button className="align-self-end" variant="outline-light" block>Хочу узнать еще больше!</Button>
-              {/* </Link> */}
-            </Card.Footer>
           </Card>
-        ))
-        }
+        </div>
       </div>
     </>
   );

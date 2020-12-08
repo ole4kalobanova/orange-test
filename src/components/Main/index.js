@@ -1,9 +1,8 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
-import styles from './index.module.css';
-import { Card } from 'react-bootstrap';
-import { Button, Col, Image, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import styles from './index.module.css';
+import { Button, Image, Card } from 'react-bootstrap';
 import github from '../../icons/github.png';
 
 export default function Main() {
@@ -36,7 +35,7 @@ export default function Main() {
         >
           <Card.Header>Логин: {el.login}</Card.Header>
           <Card.Body>
-            <Image src={el.avatar_url} className={styles.image} roundedCircle />
+            <Image src={el.avatar_url} className={styles.image} alt="avatar" roundedCircle />
             <br />
             <Card.Text>
               Посетить профиль на GitHub:

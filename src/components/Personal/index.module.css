@@ -1,10 +1,28 @@
+a{
+  text-decoration: none !important;
+  color: grey;
+}
+.avatar{
+  max-width: 15em;
+}
+
+.bio{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .cards{
-  margin: 1%;
-  text-align: center;
+  margin: 1.5% 3%;
+  width: 100%;
 }
 
 .cards:hover {
   box-shadow: 0 0 0 2px white, 0 0 5px 10px #343a40;
+}
+
+.contact{
+  align-items: flex-end;
 }
 
 .flex{
@@ -12,12 +30,9 @@
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
-  margin: 3%;
+  width: 70%;
 }
 
-/* .image{
-  height: 10em;
-} */
 .icon_git{
   max-width: 2em;
 }
@@ -27,32 +42,42 @@
   border-radius: 50%;
 }
 
+.info{
+  width: 70%;
+  text-align: center;
+}
+
 .link{
   text-decoration: none !important;
 }
-.card-body{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.contact{
-  align-items: flex-end;
-}
-.avatar{
-  max-width: 15em;
-}
-.bio{
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-}
-.personal{
-  margin: 1% 6.5%;
-}
+
 .login{
   text-align: end;
   margin-right: 6%;
 }
-.info{
-  width: 70%;
+
+.none{
+  text-align: center;
+  margin: auto;
+  color: white;
 }
+
+.octocat{
+  margin: 50px;
+  width: 40%;
+}
+
+.page{
+  display: flex;
+}
+
+.personal{
+  width: 100%;
+}
+
+.right{
+  width: 30%;
+  margin: 1.2% 3%;
+}
+
+
