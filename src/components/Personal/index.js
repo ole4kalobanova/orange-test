@@ -1,15 +1,17 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useHistory } from 'react-router-dom';
 import styles from './index.module.css';
 import { Button, Image, Card } from 'react-bootstrap';
 import github from '../../icons/github.png';
 import octocat from '../../icons/octocat.png';
+import back from '../../icons/back.png';
 
 export default function Personal() {
   const params = useParams();
   const [user, setUser] = useState();
   const [repositories, setRepositories] = useState();
+  const history = useHistory();
 
   // Запрашиваем подробную инфу на пользователя
   useEffect(() => {
@@ -31,6 +33,9 @@ export default function Personal() {
 
   return (
     <>
+      <Button className="align-self-end" variant="outline-light" className={styles.test} onClick={history.goBack}>
+        <img alt="back" className={styles.icon_back} src={back} />
+      </Button>
       <div className={styles.page}>
         <div className={styles.flex}>
           {repositories?.length === 0

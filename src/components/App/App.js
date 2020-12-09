@@ -5,12 +5,13 @@ import {
 import Main from '../Main';
 import Personal from '../Personal';
 import Repositories from '../Repos';
+import Header from '../Header';
 
 function App() {
   return (
     <div className={styles.app}>
       <Router>
-        {/* <Header /> */}
+        <Header />
         <Switch>
           <Route exact path="/">
             <Main />

@@ -1,12 +1,15 @@
 import React from 'react';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { loadUsers } from './../../redux/actions/usersAction';
 import styles from './index.module.css';
 import { Button, Image, Card } from 'react-bootstrap';
 import github from '../../icons/github.png';
 
 export default function Main() {
-  const [users, setUsers] = useState([]);
+  const users = useSelector((state) => state.users);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     (async () => {
@@ -19,13 +22,15 @@ export default function Main() {
       const responseRandomUsers = await fetch(`https://api.github.com/users?since=${rand}`);
       const dataRandomUsers = await responseRandomUsers.json();
       // Т.к. API возвращает 30 пользователей, оставляем только 10
-      setUsers(dataRandomUsers.slice(0, 10));
+      dispatch(loadUsers(dataRandomUsers.slice(0, 10)));
     })()
-  }, []);
+  }, [dispatch]);
+
+  console.log(users)
 
   return (
     <div className={styles.flex}>
-      {users && users.map((el) => (
+      {users && users?.map((el) => (
         <Card
           bg='dark'
           text='white'

@@ -12,10 +12,18 @@
 }
 
 .readme{
-  padding: 5%;
+  padding: 0 5%;
   color: white;
 }
 
 .readme_text{
   padding: 5%;
+}
+.icon_back{
+  max-height: 30px;
+}
+
+.test{
+  margin-left: 2%;
+  margin-top: 1%;
 }

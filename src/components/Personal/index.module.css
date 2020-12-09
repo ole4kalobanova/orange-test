@@ -3,7 +3,7 @@ a{
   color: grey;
 }
 .avatar{
-  max-width: 15em;
+  max-width: 50%;
 }
 
 .bio{
@@ -31,6 +31,10 @@ a{
   flex-wrap: wrap;
   justify-content: center;
   width: 70%;
+}
+
+.icon_back{
+  max-height: 30px;
 }
 
 .icon_git{
@@ -80,4 +84,7 @@ a{
   margin: 1.2% 3%;
 }
 
-
+.test{
+margin-left: 2%;
+margin-top: 1%;
+}
